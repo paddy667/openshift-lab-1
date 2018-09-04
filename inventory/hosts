@@ -1,0 +1,66 @@
+[OSEv3:vars]
+###########################################################################
+### Ansible Vars
+###########################################################################
+timeout=60
+ansible_become=yes
+ansible_ssh_user=ec2-user
+
+# disable memory check, as we are not a production environment
+openshift_disable_check="memory_availability"
+
+# Set this line to enable NFS
+openshift_enable_unsupported_configurations=True
+
+
+###########################################################################
+### OpenShift Hosts
+###########################################################################
+[OSEv3:children]
+lb
+masters
+etcd
+nodes
+nfs
+#glusterfs
+
+[lb]
+loadbalancer1.9e95.internal
+
+[masters]
+master1.9e95.internal
+master2.9e95.internal
+master3.9e95.internal
+
+[etcd]
+master1.9e95.internal
+master2.9e95.internal
+master3.9e95.internal
+
+[nodes]
+## These are the masters
+master1.9e95.internal openshift_hostname=master1.9e95.internal  openshift_node_labels="{'env': 'master', 'cluster': '9e95'}"
+master2.9e95.internal openshift_hostname=master2.9e95.internal  openshift_node_labels="{'env': 'master', 'cluster': '9e95'}"
+master3.9e95.internal openshift_hostname=master3.9e95.internal  openshift_node_labels="{'env': 'master', 'cluster': '9e95'}"
+
+## These are infranodes
+infranode1.9e95.internal openshift_hostname=infranode1.9e95.internal  openshift_node_labels="{'env':'infra', 'cluster': '9e95'}"
+infranode2.9e95.internal openshift_hostname=infranode2.9e95.internal  openshift_node_labels="{'env':'infra', 'cluster': '9e95'}"
+
+## These are regular nodes
+node1.9e95.internal openshift_hostname=node1.9e95.internal  openshift_node_labels="{'env':'app', 'cluster': '9e95'}"
+node2.9e95.internal openshift_hostname=node2.9e95.internal  openshift_node_labels="{'env':'app', 'cluster': '9e95'}"
+node3.9e95.internal openshift_hostname=node3.9e95.internal  openshift_node_labels="{'env':'app', 'cluster': '9e95'}"
+
+## These are CNS nodes
+# support1.9e95.internal openshift_hostname=support1.9e95.internal  openshift_node_labels="{'env':'glusterfs', 'cluster': '9e95'}"
+# support2.9e95.internal openshift_hostname=support2.9e95.internal  openshift_node_labels="{'env':'glusterfs', 'cluster': '9e95'}"
+# support3.9e95.internal openshift_hostname=support3.9e95.internal  openshift_node_labels="{'env':'glusterfs', 'cluster': '9e95'}"
+
+[nfs]
+support1.9e95.internal openshift_hostname=support1.9e95.internal
+
+#[glusterfs]
+# support1.9e95.internal glusterfs_devices='[ "/dev/xvdd" ]'
+# support2.9e95.internal glusterfs_devices='[ "/dev/xvdd" ]'
+# support3.9e95.internal glusterfs_devices='[ "/dev/xvdd" ]'

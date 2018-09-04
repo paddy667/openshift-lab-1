@@ -1,0 +1,10 @@
+###########################################################################
+### OpenShift Service Catalog Vars
+###########################################################################
+
+openshift_enable_service_catalog: "true" 
+ansible_service_broker_install: "false"
+template_service_broker_install: "true"
+template_service_broker_selector: "{'env':'infra'}"
+#openshift_additional_projects:{'openshift-template-service-broker': {'default_node_selector': ''}} 
+openshift_template_service_broker_namespaces: "['openshift']"

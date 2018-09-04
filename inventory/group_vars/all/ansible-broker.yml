@@ -1,0 +1,5 @@
+###########################################################################
+### Ansible Broker Config
+###########################################################################
+ansible_service_broker_node_selector: 'env=infra'
+#ansible_service_broker_node_selector='{"env":"infra"}'
