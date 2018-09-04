@@ -1,3 +1,5 @@
+---
+
 ###########################################################################
 ### OpenShift Master Vars
 ###########################################################################
@@ -9,3 +11,6 @@ openshift_master_cluster_method: 'native'
 openshift_master_cluster_hostname: 'loadbalancer1.9e95.internal'
 openshift_master_cluster_public_hostname: 'loadbalancer.9e95.example.opentlc.com' 
 openshift_master_default_subdomain: 'apps.9e95.example.opentlc.com' 
+
+# Set this line to enable NFS
+openshift_enable_unsupported_configurations: True
